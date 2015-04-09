@@ -3,13 +3,15 @@ package at.jku.semtech.miniprojekt1.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hp.hpl.jena.rdf.model.Resource;
+
 public class Entity {
     private String uri;
     private Label label;
-    private String type;
+    private Resource type;
     private List<Relation> relations;
 
-    public Entity(String uri, Label label, String type) {
+    public Entity(String uri, Label label, Resource type) {
 	this.uri = uri;
 	this.label = label;
 	this.type = type;
@@ -32,11 +34,11 @@ public class Entity {
 	this.label = label;
     }
 
-    public String getType() {
+    public Resource getType() {
 	return type;
     }
 
-    public void setType(String type) {
+    public void setType(Resource type) {
 	this.type = type;
     }
 
@@ -50,5 +52,11 @@ public class Entity {
 
     public void addRelation(Relation relation) {
 	this.relations.add(relation);
+    }
+
+    @Override
+    public String toString() {
+	return "Entity [uri=" + uri + ", label=" + label + ", type=" + type
+		+ ", relations=" + relations + "]";
     }
 }

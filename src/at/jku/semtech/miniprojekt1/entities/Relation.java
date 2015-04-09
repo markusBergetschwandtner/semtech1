@@ -1,22 +1,24 @@
 package at.jku.semtech.miniprojekt1.entities;
 
+import com.hp.hpl.jena.rdf.model.Property;
+
 public class Relation {
-    private String uri;
+    private Property property;
     private Label label;
     private Entity entity;
 
-    public Relation(String uri, Label label, Entity entity) {
-	this.uri = uri;
+    public Relation(Property property, Label label, Entity entity) {
+	this.property = property;
 	this.label = label;
 	this.entity = entity;
     }
 
-    public String getUri() {
-	return uri;
+    public Property getProperty() {
+	return property;
     }
 
-    public void setUri(String uri) {
-	this.uri = uri;
+    public void setProperty(Property property) {
+	this.property = property;
     }
 
     public Label getLabel() {
@@ -33,5 +35,11 @@ public class Relation {
 
     public void setEntity(Entity entity) {
 	this.entity = entity;
+    }
+
+    @Override
+    public String toString() {
+	return "Relation [property=" + property + ", label=" + label
+		+ ", entity=" + entity + "]";
     }
 }

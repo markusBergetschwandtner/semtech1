@@ -24,4 +24,9 @@ public class Label {
     public void setLanguage(String language) {
 	this.language = language;
     }
+
+    @Override
+    public String toString() {
+	return "Label [value=" + value + ", language=" + language + "]";
+    }
 }

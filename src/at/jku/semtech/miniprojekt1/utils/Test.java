@@ -1,5 +1,10 @@
 package at.jku.semtech.miniprojekt1.utils;
 
+import at.jku.semtech.miniprojekt1.entities.Entity;
+import at.jku.semtech.miniprojekt1.entities.Label;
+import at.jku.semtech.miniprojekt1.entities.Relation;
+
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.update.UpdateExecutionFactory;
 import com.hp.hpl.jena.update.UpdateFactory;
 import com.hp.hpl.jena.update.UpdateProcessor;
@@ -15,8 +20,8 @@ public class Test {
 		"update").getPath()
 		+ "/init.ru");
 	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
-		queryObj, "http://localhost:3030/ds/update");
-	// qexec.execute();
+		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
+	qexec.execute();
 	System.out.println("end update");
 
 	// updating the remote model using a query string
@@ -26,9 +31,19 @@ public class Test {
 
 	queryObj = UpdateFactory.create(updateSparql);
 	qexec = UpdateExecutionFactory.createRemoteForm(queryObj,
-		"http://localhost:3030/ds/update");
-	qexec.execute();
+		Static.FUSEKI_ENDPOINT_UPDATE);
+	// qexec.execute();
 	System.out.println("end update");
-    }
 
+	// creating model with Java objects
+	Label lBob = new Label("Bob", "de");
+	Entity bob = new Entity(Static.NS + "bob#me", lBob, FOAF.Person);
+
+	Label lJane = new Label("Jane", "en");
+	Entity jane = new Entity(Static.NS + "jane#me", lJane, FOAF.Person);
+
+	bob.addRelation(new Relation(FOAF.knows, new Label("kennt", "de"), jane));
+
+	System.out.println(bob.toString());
+    }
 }
