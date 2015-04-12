@@ -7,13 +7,12 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 public class Entity {
     private String uri;
-    private Label label;
     private Resource type;
     private List<Relation> relations;
+    private List<Label> properties;
 
-    public Entity(String uri, Label label, Resource type) {
+    public Entity(String uri, Resource type) {
 	this.uri = uri;
-	this.label = label;
 	this.type = type;
 	this.relations = new ArrayList<Relation>();
     }
@@ -24,14 +23,6 @@ public class Entity {
 
     public void setUri(String uri) {
 	this.uri = uri;
-    }
-
-    public Label getLabel() {
-	return label;
-    }
-
-    public void setLabel(Label label) {
-	this.label = label;
     }
 
     public Resource getType() {
@@ -54,9 +45,21 @@ public class Entity {
 	this.relations.add(relation);
     }
 
+    public List<Label> getProperties() {
+	return properties;
+    }
+
+    public void addProperties(List<Label> properties) {
+	this.properties.addAll(properties);
+    }
+
+    public void addProperty(Label property) {
+	this.properties.add(property);
+    }
+
     @Override
     public String toString() {
-	return "Entity [uri=" + uri + ", label=" + label + ", type=" + type
-		+ ", relations=" + relations + "]";
+	return "Entity [uri=" + uri + ", type=" + type + ", relations="
+		+ relations + ", properties=" + properties + "]";
     }
 }

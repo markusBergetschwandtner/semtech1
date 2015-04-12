@@ -1,12 +1,24 @@
 package at.jku.semtech.miniprojekt1.entities;
 
+import com.hp.hpl.jena.rdf.model.Property;
+
 public class Label {
+    private Property property;
     private Object value;
     private String language;
 
-    public Label(Object value, String language) {
+    public Label(Property property, Object value, String language) {
+	this.property = property;
 	this.value = value;
 	this.language = language;
+    }
+
+    public Property getProperty() {
+	return property;
+    }
+
+    public void setProperty(Property property) {
+	this.property = property;
     }
 
     public Object getValue() {
@@ -27,6 +39,7 @@ public class Label {
 
     @Override
     public String toString() {
-	return "Label [value=" + value + ", language=" + language + "]";
+	return "Label [property=" + property + ", value=" + value
+		+ ", language=" + language + "]";
     }
 }

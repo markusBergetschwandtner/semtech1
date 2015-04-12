@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/lib"/>
-        <property name="context-root" value="MiniProject_1"/>
         <property name="java-output-path" value="/MiniProject_1/bin"/>
+        <property name="context-root" value="semtech1"/>
     </wb-module>
 </project-modules>
