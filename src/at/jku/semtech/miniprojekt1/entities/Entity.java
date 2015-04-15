@@ -15,6 +15,7 @@ public class Entity {
 	this.uri = uri;
 	this.type = type;
 	this.relations = new ArrayList<Relation>();
+	this.properties = new ArrayList<Label>();
     }
 
     public String getUri() {

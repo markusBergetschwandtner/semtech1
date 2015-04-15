@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+<%@page import="at.jku.semtech.miniprojekt1.services.MitarbeiterSevice"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="com.hp.hpl.jena.query.*"%>
@@ -25,13 +26,32 @@
 
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
+<%
+    String update = request.getParameter("update");
+    MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
+    if (update.equalsIgnoreCase("true")) {
+
+		mitarbeiterSevice.createMitarbeiter(
+			request.getParameter("vnameInput"),
+			request.getParameter("nnameInput"),
+			request.getParameter("strasseInput"),
+			Integer.parseInt(request.getParameter("plzInput")),
+			request.getParameter("ortInput"),
+			request.getParameter("landInput"),
+			request.getParameter("gebdatInput"),
+			request.getParameter("abteilungInput"),
+			request.getParameter("geschlechtInput"));
+    }
+%>
+
 </head>
 
 <body>
 	<div class="container">
 		<div class="row header">
 			<div class="col-md-12">
-				<h1>Mitarbeiter-Datenbank</h1>
+				<h1>Mitarbeiter-Datenbank - einzelner Mitarbeiter</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -40,9 +60,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<p>Willkommen in der Mitarbeiter-Datenbank<br><br>
-					Wählen Sie aus dem obigen Menü aus - Sie können Mitarbeiter anzeigen, erfassen sowie deren Beziehungen einsehen.<br>
-					<img src="http://www.hms-eldemir.de/images/team-icon.png" alt="Mitarbeiter-Datenbank">
+					
 				</div>
 			</div>
 		</div>
