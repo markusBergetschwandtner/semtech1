@@ -1,22 +1,32 @@
 package at.jku.semtech.miniprojekt1.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.twinkql.context.TwinkqlContextFactory;
+import org.twinkql.template.TwinkqlTemplate;
+import org.twinkql.template.TwinkqlTemplateFactory;
 
 import at.jku.semtech.miniprojekt1.entities.Entity;
 import at.jku.semtech.miniprojekt1.entities.Label;
+import at.jku.semtech.miniprojekt1.entities.Person;
 import at.jku.semtech.miniprojekt1.utils.Static;
+import at.jku.semtech.miniprojekt1.utils.TwinkqlConfig;
 
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
-import com.hp.hpl.jena.update.UpdateExecutionFactory;
 import com.hp.hpl.jena.update.UpdateFactory;
-import com.hp.hpl.jena.update.UpdateProcessor;
 import com.hp.hpl.jena.update.UpdateRequest;
 import com.hp.hpl.jena.vocabulary.VCARD;
 
 public class MitarbeiterSevice {
+    private TwinkqlContextFactory factory;
+    private TwinkqlTemplate template = null;
 
     public MitarbeiterSevice() {
-
+	factory = new TwinkqlContextFactory(Static.FUSEKI_ENDPOINT_QUERY,
+		"classpath:at/jku/semtech/miniprojekt1/mapping/*.xml");
+	TwinkqlConfig.configure(factory);
     }
 
     public int createMitarbeiter(String vname, String nname, String strasse,
@@ -65,11 +75,26 @@ public class MitarbeiterSevice {
 	System.out.println("begin update: " + updateSparql);
 
 	UpdateRequest queryObj = UpdateFactory.create(updateSparql);
-	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
-		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
-	qexec.execute();
+	// UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
+	// queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
+	// qexec.execute();
 	System.out.println("end update");
 
 	return 1;
+    }
+
+    public void getMitarbeiter() {
+	try {
+	    template = new TwinkqlTemplateFactory(factory.getTwinkqlContext())
+		    .getTwinkqlTemplate();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("vorname", "Markus");
+	Person person = template.selectForObject("param", "getPerson", params,
+		Person.class);
+	// System.out.println(person.toString());
     }
 }

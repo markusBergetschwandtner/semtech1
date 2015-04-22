@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sparqlMap namespace="param" xmlns="http://twinkql.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://twinkql.org/schema/1.0/twinkql.xsd">
+	
+	<resultMap id="personResultMap" resultClass="at.jku.semtech.miniprojekt1.entities.Person">
+		<uniqueResult>person</uniqueResult>
+		<rowMap var="person" varType="uri" beanProperty="uri" />
+		<rowMap var="vname" varType="literalValue" beanProperty="vname" />
+		<rowMap var="nname" varType="literalValue" beanProperty="nname" />
+		<rowMap var="strasse" varType="literalValue" beanProperty="strasse" />
+		<rowMap var="plz" varType="literalValue" beanProperty="plz" />
+		<rowMap var="ort" varType="literalValue" beanProperty="ort" />
+		<rowMap var="land" varType="literalValue" beanProperty="land" />
+		<rowMap var="gebdat" varType="literalValue" beanProperty="gebdat" />
+		<rowMap var="abteilung" varType="literalValue" beanProperty="abteilung" />
+		<rowMap var="geschlecht" varType="literalValue" beanProperty="geschlecht" />
+	</resultMap>
+	
+	<select id="getPerson" resultMap="personResultMap">
+		<![CDATA[
+			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			WHERE {
+				?person foaf:firstName "#{vorname}".
+				?person foaf:surname ?nname.
+				?person vcard:Street ?strasse.
+				?person vcard:Pcode ?plz.
+				?person vcard:Locality ?ort.
+				?person vcard:Country ?land.
+				?person foaf:birthday ?gebdat.
+				?person vcard:Orgunit ?abteilung.
+				?person foaf:gender ?geschlecht.
+			}
+		]]>
+	</select>
+</sparqlMap>
