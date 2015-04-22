@@ -39,8 +39,8 @@ public class MitarbeiterSevice {
     }
 
     public int createMitarbeiter(String vname, String nname, String strasse,
-	    int plz, String ort, String land, String gebdat, String abteilung,
-	    String geschlecht) {
+	    String plz, String ort, String land, String gebdat,
+	    String abteilung, String geschlecht, String graph) {
 	// create person object
 	String name = vname + "_" + nname;
 	Label l_vname = new Label(FOAF.firstName, vname, "de");
@@ -64,9 +64,12 @@ public class MitarbeiterSevice {
 	mitarbeiter.addProperty(l_geschlecht);
 
 	// updating the remote model using a query string
-	// TODO
 	String updateSparql = Static.PREFIX_RDF + Static.PREFIX;
 	updateSparql += " INSERT DATA { ";
+	if (!graph.equals("")) {
+	    updateSparql += " GRAPH <http://example.org/" + graph + "/> { ";
+	}
+
 	updateSparql += Static.PREFIX_SHORT + name + " a " + "<"
 		+ mitarbeiter.getType().getURI() + ">; ";
 	List<Label> props = mitarbeiter.getProperties();
@@ -78,6 +81,9 @@ public class MitarbeiterSevice {
 	    } else {
 		updateSparql += "'; ";
 	    }
+	}
+	if (!graph.equals("")) {
+	    updateSparql += "}";
 	}
 	updateSparql += "};";
 
@@ -92,6 +98,22 @@ public class MitarbeiterSevice {
 	return 1;
     }
 
+    public int deleteMitarbeiter(String vname, String nname) {
+	String updateSparql = Static.PREFIX_RDF + Static.PREFIX
+		+ Static.PREFIX_FOAF + Static.PREFIX_VCARD;
+	updateSparql += " DELETE WHERE { ?person ?pred ?obj. ?person foaf:firstName '";
+	updateSparql += vname + "'. ?person foaf:surname '" + nname + "'.} ";
+
+	System.out.println("begin delete: " + updateSparql);
+
+	UpdateRequest queryObj = UpdateFactory.create(updateSparql);
+	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
+		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
+	qexec.execute();
+	System.out.println("end delete");
+	return 1;
+    }
+
     public Person getMitarbeiterByNname(String nname) {
 	Map<String, Object> params = new HashMap<String, Object>();
 	params.put("nname", nname);
@@ -99,6 +121,21 @@ public class MitarbeiterSevice {
 	Person person = template.selectForObject("param", "getPersonByNname",
 		params, Person.class);
 	return person;
+    }
+
+    public int moveMitarbeiter(String vname, String nname) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("nname", nname);
+	params.put("vname", vname);
+	System.out.println("getPersonByName: " + nname);
+	Person person = template.selectForObject("param",
+		"getPersonByNnameVname", params, Person.class);
+	deleteMitarbeiter(vname, nname);
+	createMitarbeiter(person.getVname(), person.getNname(),
+		person.getStrasse(), person.getPlz(), person.getOrt(),
+		person.getLand(), person.getGebDat(), person.getAbteilung(),
+		person.getGeschlecht(), "gr_mitarbeiter_delete");
+	return 1;
     }
 
     public List<Person> getMitarbeiterByAbteilung(String abteilung) {

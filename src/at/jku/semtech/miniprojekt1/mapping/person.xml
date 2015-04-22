@@ -36,6 +36,26 @@
 		]]>
 	</select>
 	
+	<select id="getPersonByNnameVname" resultMap="personResultMap">
+		<![CDATA[
+			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			WHERE {
+				?person foaf:surname "#{nname}".
+				?person foaf:firstName "#{vname}".
+			
+				?person foaf:firstName ?vname.
+				?person foaf:surname ?nname.
+				?person vcard:Street ?strasse.
+				?person vcard:Pcode ?plz.
+				?person vcard:Locality ?ort.
+				?person vcard:Country ?land.
+				?person foaf:birthday ?gebdat.
+				?person vcard:Orgunit ?abteilung.
+				?person foaf:gender ?geschlecht.
+			}
+		]]>
+	</select>
+	
 	<select id="getPersonByAbteilung" resultMap="personResultMap">
 		<![CDATA[
 			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
