@@ -15,7 +15,9 @@ import at.jku.semtech.miniprojekt1.utils.Static;
 import at.jku.semtech.miniprojekt1.utils.TwinkqlConfig;
 
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
+import com.hp.hpl.jena.update.UpdateExecutionFactory;
 import com.hp.hpl.jena.update.UpdateFactory;
+import com.hp.hpl.jena.update.UpdateProcessor;
 import com.hp.hpl.jena.update.UpdateRequest;
 import com.hp.hpl.jena.vocabulary.VCARD;
 
@@ -82,9 +84,9 @@ public class MitarbeiterSevice {
 	System.out.println("begin update: " + updateSparql);
 
 	UpdateRequest queryObj = UpdateFactory.create(updateSparql);
-	// UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
-	// queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
-	// qexec.execute();
+	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
+		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
+	qexec.execute();
 	System.out.println("end update");
 
 	return 1;

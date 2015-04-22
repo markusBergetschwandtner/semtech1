@@ -22,9 +22,9 @@ public class Test {
 	// qexec.execute();
 
 	MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
-	// mitarbeiterSevice.createMitarbeiter("Markus", "Bergetschwandtner",
-	// "Sonnenhang 1", 5310, "Mondsee", "Austria", "1991-07-29",
-	// "ICS480-SW.ext", "m");
+	mitarbeiterSevice.createMitarbeiter("Markus", "Bergetschwandtner1",
+		"Sonnenhang 1", 5310, "Mondsee", "Austria", "1991-07-29",
+		"ICS480-SW.ext", "m");
 	System.out.println(mitarbeiterSevice
 		.getMitarbeiterByAbteilung("ICS480-SW.ext"));
 

@@ -13,4 +13,5 @@ public class Static {
     public static final String FUSEKI_ENDPOINT_QUERY = "http://localhost:3030/ds/query";
     public static final String FUSEKI_ENDPOINT_UPDATE = "http://localhost:3030/ds/update";
     public static final String FUSEKI_ENDPOINT_DATA = "http://localhost:3030/ds/data";
+    public static final String FUSEKI_ENDPOINT = "http://localhost:3030/ds";
 }
