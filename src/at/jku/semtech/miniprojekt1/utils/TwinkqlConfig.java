@@ -15,9 +15,9 @@ public class TwinkqlConfig {
 	ConfigBuilder builder = new ConfigBuilder();
 	builder.addNamespace(getDefinition("rdfs",
 		"http://www.w3.org/2000/01/rdf-schema#"));
-	builder.addNamespace(getDefinition("foaf", "http://xmlns.com/foaf/0.1"));
+	builder.addNamespace(getDefinition("foaf", "http://xmlns.com/foaf/0.1/"));
 	builder.addNamespace(getDefinition("vcard",
-		"http://www.w3.org/2001/vcard-rdf/3.0/"));
+		"http://www.w3.org/2001/vcard-rdf/3.0#"));
 	builder.addNamespace(getDefinition("semtech",
 		"http://www.jku.at/semtech/miniprojekt1"));
 	return builder;

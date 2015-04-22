@@ -12,16 +12,37 @@
 		<rowMap var="plz" varType="literalValue" beanProperty="plz" />
 		<rowMap var="ort" varType="literalValue" beanProperty="ort" />
 		<rowMap var="land" varType="literalValue" beanProperty="land" />
-		<rowMap var="gebdat" varType="literalValue" beanProperty="gebdat" />
+		<rowMap var="gebdat" varType="literalValue" beanProperty="gebDat" />
 		<rowMap var="abteilung" varType="literalValue" beanProperty="abteilung" />
 		<rowMap var="geschlecht" varType="literalValue" beanProperty="geschlecht" />
 	</resultMap>
 	
-	<select id="getPerson" resultMap="personResultMap">
+	<select id="getPersonByNname" resultMap="personResultMap">
 		<![CDATA[
 			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
 			WHERE {
-				?person foaf:firstName "#{vorname}".
+				?person foaf:surname "#{nname}".
+			
+				?person foaf:firstName ?vname.
+				?person foaf:surname ?nname.
+				?person vcard:Street ?strasse.
+				?person vcard:Pcode ?plz.
+				?person vcard:Locality ?ort.
+				?person vcard:Country ?land.
+				?person foaf:birthday ?gebdat.
+				?person vcard:Orgunit ?abteilung.
+				?person foaf:gender ?geschlecht.
+			}
+		]]>
+	</select>
+	
+	<select id="getPersonByAbteilung" resultMap="personResultMap">
+		<![CDATA[
+			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			WHERE {
+				?person vcard:Orgunit "#{abteilung}".
+			
+				?person foaf:firstName ?vname.
 				?person foaf:surname ?nname.
 				?person vcard:Street ?strasse.
 				?person vcard:Pcode ?plz.

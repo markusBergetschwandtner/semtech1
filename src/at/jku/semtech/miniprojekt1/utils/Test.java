@@ -25,6 +25,8 @@ public class Test {
 	// mitarbeiterSevice.createMitarbeiter("Markus", "Bergetschwandtner",
 	// "Sonnenhang 1", 5310, "Mondsee", "Austria", "1991-07-29",
 	// "ICS480-SW.ext", "m");
-	mitarbeiterSevice.getMitarbeiter();
+	System.out.println(mitarbeiterSevice
+		.getMitarbeiterByAbteilung("ICS480-SW.ext"));
+
     }
 }

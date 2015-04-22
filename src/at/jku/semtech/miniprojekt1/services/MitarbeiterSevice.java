@@ -27,6 +27,13 @@ public class MitarbeiterSevice {
 	factory = new TwinkqlContextFactory(Static.FUSEKI_ENDPOINT_QUERY,
 		"classpath:at/jku/semtech/miniprojekt1/mapping/*.xml");
 	TwinkqlConfig.configure(factory);
+
+	try {
+	    template = new TwinkqlTemplateFactory(factory.getTwinkqlContext())
+		    .getTwinkqlTemplate();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     public int createMitarbeiter(String vname, String nname, String strasse,
@@ -83,18 +90,21 @@ public class MitarbeiterSevice {
 	return 1;
     }
 
-    public void getMitarbeiter() {
-	try {
-	    template = new TwinkqlTemplateFactory(factory.getTwinkqlContext())
-		    .getTwinkqlTemplate();
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
-
+    public Person getMitarbeiterByNname(String nname) {
 	Map<String, Object> params = new HashMap<String, Object>();
-	params.put("vorname", "Markus");
-	Person person = template.selectForObject("param", "getPerson", params,
-		Person.class);
-	// System.out.println(person.toString());
+	params.put("nname", nname);
+	System.out.println("getPersonByName: " + nname);
+	Person person = template.selectForObject("param", "getPersonByNname",
+		params, Person.class);
+	return person;
+    }
+
+    public List<Person> getMitarbeiterByAbteilung(String abteilung) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("abteilung", abteilung);
+	System.out.println("getPersonByAbteilung: " + abteilung);
+	List<Person> persons = template.selectForList("param",
+		"getPersonByAbteilung", params, Person.class);
+	return persons;
     }
 }

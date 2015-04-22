@@ -14,21 +14,6 @@ public class Person {
     private String abteilung;
     private String geschlecht;
 
-    public Person(URI uri, String vname, String nname, String strasse,
-	    String plz, String ort, String land, String gebDat,
-	    String abteilung, String geschlecht) {
-	this.uri = uri;
-	this.vname = vname;
-	this.nname = nname;
-	this.strasse = strasse;
-	this.plz = plz;
-	this.ort = ort;
-	this.land = land;
-	this.gebDat = gebDat;
-	this.abteilung = abteilung;
-	this.geschlecht = geschlecht;
-    }
-
     public URI getUri() {
 	return uri;
     }
