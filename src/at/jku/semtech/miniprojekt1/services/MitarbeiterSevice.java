@@ -40,7 +40,8 @@ public class MitarbeiterSevice {
 
     public int createMitarbeiter(String vname, String nname, String strasse,
 	    String plz, String ort, String land, String gebdat,
-	    String abteilung, String geschlecht, String graph) {
+	    String abteilung, String geschlecht, Map<String, String> relations,
+	    String graph) {
 	// create person object
 	String name = vname + "_" + nname;
 	Label l_vname = new Label(FOAF.firstName, vname, "de");
@@ -95,6 +96,27 @@ public class MitarbeiterSevice {
 	qexec.execute();
 	System.out.println("end update");
 
+	if (relations != null) {
+	    for (Map.Entry<String, String> relation : relations.entrySet()) {
+		addRelation(name, relation.getKey(), relation.getValue());
+	    }
+	}
+
+	return 1;
+    }
+
+    public int addRelation(String fromUri, String property, String toUri) {
+	String updateSparql = Static.PREFIX_RDF + Static.PREFIX
+		+ Static.PREFIX_FOAF + Static.PREFIX_VCARD;
+	updateSparql += " INSERT DATA { :" + fromUri + " " + property + " :"
+		+ toUri;
+	updateSparql += ".};";
+	System.out.println("begin update: " + updateSparql);
+	UpdateRequest queryObj = UpdateFactory.create(updateSparql);
+	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
+		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
+	qexec.execute();
+	System.out.println("end update");
 	return 1;
     }
 
@@ -134,7 +156,19 @@ public class MitarbeiterSevice {
 	createMitarbeiter(person.getVname(), person.getNname(),
 		person.getStrasse(), person.getPlz(), person.getOrt(),
 		person.getLand(), person.getGebDat(), person.getAbteilung(),
-		person.getGeschlecht(), "gr_mitarbeiter_delete");
+		person.getGeschlecht(), null, "gr_mitarbeiter_delete");
+	return 1;
+    }
+
+    public int updateMitarbeiter(String vname, String nname, String strasse,
+	    String plz, String ort, String land, String gebdat,
+	    String abteilung, String geschlecht, Map<String, String> relations) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("nname", nname);
+	params.put("vname", vname);
+	deleteMitarbeiter(vname, nname);
+	createMitarbeiter(vname, nname, strasse, plz, ort, land, gebdat,
+		abteilung, geschlecht, relations, "");
 	return 1;
     }
 

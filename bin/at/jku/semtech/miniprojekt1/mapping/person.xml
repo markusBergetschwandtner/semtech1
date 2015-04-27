@@ -15,11 +15,16 @@
 		<rowMap var="gebdat" varType="literalValue" beanProperty="gebDat" />
 		<rowMap var="abteilung" varType="literalValue" beanProperty="abteilung" />
 		<rowMap var="geschlecht" varType="literalValue" beanProperty="geschlecht" />
+		<rowMap var="knows" varType="localName" beanProperty="knows[]"/>
+		<rowMap var="friend" varType="localName" beanProperty="friend[]"/>
+		<rowMap var="coworker" varType="localName" beanProperty="coworker[]"/>
+		<rowMap var="sweetheart" varType="localName" beanProperty="sweetheart[]"/>
 	</resultMap>
 	
 	<select id="getPersonByNname" resultMap="personResultMap">
 		<![CDATA[
 			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			?knows ?coworker ?sweetheart ?friend 
 			WHERE {
 				?person foaf:surname "#{nname}".
 			
@@ -32,6 +37,10 @@
 				?person foaf:birthday ?gebdat.
 				?person vcard:Orgunit ?abteilung.
 				?person foaf:gender ?geschlecht.
+				OPTIONAL {?person foaf:knows ?knows.}
+				OPTIONAL {?person vcard:friend ?friend.}
+				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
+				OPTIONAL {?person vcard:coworker ?coworker.}
 			}
 		]]>
 	</select>
@@ -39,6 +48,7 @@
 	<select id="getPersonByNnameVname" resultMap="personResultMap">
 		<![CDATA[
 			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			?knows ?coworker ?sweetheart ?friend 
 			WHERE {
 				?person foaf:surname "#{nname}".
 				?person foaf:firstName "#{vname}".
@@ -52,6 +62,10 @@
 				?person foaf:birthday ?gebdat.
 				?person vcard:Orgunit ?abteilung.
 				?person foaf:gender ?geschlecht.
+				OPTIONAL {?person foaf:knows ?knows.}
+				OPTIONAL {?person vcard:friend ?friend.}
+				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
+				OPTIONAL {?person vcard:coworker ?coworker.}
 			}
 		]]>
 	</select>
@@ -59,6 +73,7 @@
 	<select id="getPersonByAbteilung" resultMap="personResultMap">
 		<![CDATA[
 			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			?knows ?coworker ?sweetheart ?friend 
 			WHERE {
 				?person vcard:Orgunit "#{abteilung}".
 			
@@ -71,6 +86,10 @@
 				?person foaf:birthday ?gebdat.
 				?person vcard:Orgunit ?abteilung.
 				?person foaf:gender ?geschlecht.
+				OPTIONAL {?person foaf:knows ?knows.}
+				OPTIONAL {?person vcard:friend ?friend.}
+				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
+				OPTIONAL {?person vcard:coworker ?coworker.}
 			}
 		]]>
 	</select>

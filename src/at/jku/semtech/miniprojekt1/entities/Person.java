@@ -1,6 +1,7 @@
 package at.jku.semtech.miniprojekt1.entities;
 
 import java.net.URI;
+import java.util.List;
 
 public class Person {
     private URI uri;
@@ -13,6 +14,10 @@ public class Person {
     private String gebDat;
     private String abteilung;
     private String geschlecht;
+    private List<String> knows;
+    private List<String> friend;
+    private List<String> coworker;
+    private List<String> sweetheart;
 
     public URI getUri() {
 	return uri;
@@ -94,11 +99,45 @@ public class Person {
 	this.geschlecht = geschlecht;
     }
 
+    public List<String> getKnows() {
+	return knows;
+    }
+
+    public void setKnows(List<String> knows) {
+	this.knows = knows;
+    }
+
+    public List<String> getFriend() {
+	return friend;
+    }
+
+    public void setFriend(List<String> friend) {
+	this.friend = friend;
+    }
+
+    public List<String> getCoworker() {
+	return coworker;
+    }
+
+    public void setCoworker(List<String> coworker) {
+	this.coworker = coworker;
+    }
+
+    public List<String> getSweetheart() {
+	return sweetheart;
+    }
+
+    public void setSweetheart(List<String> sweetheart) {
+	this.sweetheart = sweetheart;
+    }
+
     @Override
     public String toString() {
 	return "Person [uri=" + uri + ", vname=" + vname + ", nname=" + nname
 		+ ", strasse=" + strasse + ", plz=" + plz + ", ort=" + ort
 		+ ", land=" + land + ", gebDat=" + gebDat + ", abteilung="
-		+ abteilung + ", geschlecht=" + geschlecht + "]";
+		+ abteilung + ", geschlecht=" + geschlecht + ", knows=" + knows
+		+ ", friend=" + friend + ", coworker=" + coworker
+		+ ", sweetheart=" + sweetheart + "]";
     }
 }
