@@ -89,11 +89,7 @@ public class MitarbeiterSevice {
 	updateSparql += "};";
 
 	System.out.println("begin update: " + updateSparql);
-
-	UpdateRequest queryObj = UpdateFactory.create(updateSparql);
-	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
-		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
-	qexec.execute();
+	updateRequest(updateSparql);
 	System.out.println("end update");
 
 	if (relations != null) {
@@ -112,10 +108,7 @@ public class MitarbeiterSevice {
 		+ toUri;
 	updateSparql += ".};";
 	System.out.println("begin update: " + updateSparql);
-	UpdateRequest queryObj = UpdateFactory.create(updateSparql);
-	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
-		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
-	qexec.execute();
+	updateRequest(updateSparql);
 	System.out.println("end update");
 	return 1;
     }
@@ -127,11 +120,7 @@ public class MitarbeiterSevice {
 	updateSparql += vname + "'. ?person foaf:surname '" + nname + "'.} ";
 
 	System.out.println("begin delete: " + updateSparql);
-
-	UpdateRequest queryObj = UpdateFactory.create(updateSparql);
-	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
-		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
-	qexec.execute();
+	updateRequest(updateSparql);
 	System.out.println("end delete");
 	return 1;
     }
@@ -179,5 +168,12 @@ public class MitarbeiterSevice {
 	List<Person> persons = template.selectForList("param",
 		"getPersonByAbteilung", params, Person.class);
 	return persons;
+    }
+
+    private void updateRequest(String update) {
+	UpdateRequest queryObj = UpdateFactory.create(update);
+	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(
+		queryObj, Static.FUSEKI_ENDPOINT_UPDATE);
+	qexec.execute();
     }
 }
