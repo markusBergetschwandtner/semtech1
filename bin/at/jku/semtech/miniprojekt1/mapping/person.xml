@@ -51,9 +51,6 @@
 			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
 			?knows ?coworker ?sweetheart ?friend 
 			WHERE {
-				?person foaf:surname "#{nname}".
-				?person foaf:firstName "#{vname}".
-			
 				?person foaf:firstName ?vname.
 				?person foaf:surname ?nname.
 				?person vcard:Street ?strasse.
@@ -67,6 +64,105 @@
 				OPTIONAL {?person vcard:friend ?friend.}
 				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
 				OPTIONAL {?person vcard:coworker ?coworker.}
+				
+				FILTER (regex(?nname, "#{nname}", "i")).
+				FILTER (regex(?vname, "#{vname}", "i")).
+			}
+		]]>
+	</select>
+	
+	<select id="getPersonByGeschlecht" resultMap="personResultMap">
+		<![CDATA[
+			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			?knows ?coworker ?sweetheart ?friend 
+			WHERE {
+				?person foaf:firstName ?vname.
+				?person foaf:surname ?nname.
+				?person vcard:Street ?strasse.
+				?person vcard:Pcode ?plz.
+				?person vcard:Locality ?ort.
+				?person vcard:Country ?land.
+				?person foaf:birthday ?gebdat.
+				?person vcard:Orgunit ?abteilung.
+				?person foaf:gender ?geschlecht.
+				OPTIONAL {?person foaf:knows ?knows.}
+				OPTIONAL {?person vcard:friend ?friend.}
+				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
+				OPTIONAL {?person vcard:coworker ?coworker.}
+				
+				FILTER (regex(?geschlecht, "#{geschlecht}", "i")).
+			}
+		]]>
+	</select>
+	
+	<select id="getPersonByPlz" resultMap="personResultMap">
+		<![CDATA[
+			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			?knows ?coworker ?sweetheart ?friend 
+			WHERE {
+				?person foaf:firstName ?vname.
+				?person foaf:surname ?nname.
+				?person vcard:Street ?strasse.
+				?person vcard:Pcode ?plz.
+				?person vcard:Locality ?ort.
+				?person vcard:Country ?land.
+				?person foaf:birthday ?gebdat.
+				?person vcard:Orgunit ?abteilung.
+				?person foaf:gender ?geschlecht.
+				OPTIONAL {?person foaf:knows ?knows.}
+				OPTIONAL {?person vcard:friend ?friend.}
+				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
+				OPTIONAL {?person vcard:coworker ?coworker.}
+				
+				FILTER (regex(?plz, "#{plz}", "i")).
+			}
+		]]>
+	</select>
+	
+	<select id="getPersonByOrt" resultMap="personResultMap">
+		<![CDATA[
+			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			?knows ?coworker ?sweetheart ?friend 
+			WHERE {
+				?person foaf:firstName ?vname.
+				?person foaf:surname ?nname.
+				?person vcard:Street ?strasse.
+				?person vcard:Pcode ?plz.
+				?person vcard:Locality ?ort.
+				?person vcard:Country ?land.
+				?person foaf:birthday ?gebdat.
+				?person vcard:Orgunit ?abteilung.
+				?person foaf:gender ?geschlecht.
+				OPTIONAL {?person foaf:knows ?knows.}
+				OPTIONAL {?person vcard:friend ?friend.}
+				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
+				OPTIONAL {?person vcard:coworker ?coworker.}
+				
+				FILTER (regex(?ort, "#{ort}", "i")).
+			}
+		]]>
+	</select>
+	
+	<select id="getPersonByLand" resultMap="personResultMap">
+		<![CDATA[
+			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
+			?knows ?coworker ?sweetheart ?friend 
+			WHERE {
+				?person foaf:firstName ?vname.
+				?person foaf:surname ?nname.
+				?person vcard:Street ?strasse.
+				?person vcard:Pcode ?plz.
+				?person vcard:Locality ?ort.
+				?person vcard:Country ?land.
+				?person foaf:birthday ?gebdat.
+				?person vcard:Orgunit ?abteilung.
+				?person foaf:gender ?geschlecht.
+				OPTIONAL {?person foaf:knows ?knows.}
+				OPTIONAL {?person vcard:friend ?friend.}
+				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
+				OPTIONAL {?person vcard:coworker ?coworker.}
+				
+				FILTER (regex(?land, "#{land}", "i")).
 			}
 		]]>
 	</select>
@@ -76,8 +172,6 @@
 			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
 			?knows ?coworker ?sweetheart ?friend 
 			WHERE {
-				?person vcard:Orgunit "#{abteilung}".
-			
 				?person foaf:firstName ?vname.
 				?person foaf:surname ?nname.
 				?person vcard:Street ?strasse.
@@ -91,6 +185,8 @@
 				OPTIONAL {?person vcard:friend ?friend.}
 				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
 				OPTIONAL {?person vcard:coworker ?coworker.}
+				
+				FILTER (regex(?abteilung, "#{abteilung}", "i")).
 			}
 		]]>
 	</select>

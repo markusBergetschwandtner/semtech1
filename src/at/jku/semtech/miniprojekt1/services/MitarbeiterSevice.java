@@ -161,6 +161,53 @@ public class MitarbeiterSevice {
 	return persons;
     }
 
+    public List<Person> getMitarbeiterListByNnameVname(String nname,
+	    String vname) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("nname", nname);
+	params.put("vname", vname);
+	System.out.println("getPersonByNameVname: " + nname + " " + vname);
+	List<Person> persons = template.selectForList("param",
+		"getPersonByNnameVname", params, Person.class);
+	return persons;
+    }
+
+    public List<Person> getMitarbeiterListByGeschlecht(String geschlecht) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("geschlecht", geschlecht);
+	System.out.println("getPersonByGeschlecht: " + geschlecht);
+	List<Person> persons = template.selectForList("param",
+		"getPersonByGeschlecht", params, Person.class);
+	return persons;
+    }
+
+    public List<Person> getMitarbeiterListByPlz(String plz) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("plz", plz);
+	System.out.println("getPersonByPlz: " + plz);
+	List<Person> persons = template.selectForList("param",
+		"getPersonByPlz", params, Person.class);
+	return persons;
+    }
+
+    public List<Person> getMitarbeiterListByOrt(String ort) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("ort", ort);
+	System.out.println("getPersonByOrt: " + ort);
+	List<Person> persons = template.selectForList("param",
+		"getPersonByOrt", params, Person.class);
+	return persons;
+    }
+
+    public List<Person> getMitarbeiterListByLand(String land) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("land", land);
+	System.out.println("getPersonByLand: " + land);
+	List<Person> persons = template.selectForList("param",
+		"getPersonByLand", params, Person.class);
+	return persons;
+    }
+
     public List<Person> getMitarbeiterListByAbteilung(String abteilung) {
 	Map<String, Object> params = new HashMap<String, Object>();
 	params.put("abteilung", abteilung);

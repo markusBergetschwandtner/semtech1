@@ -36,6 +36,7 @@ public class Test {
 	// mitarbeiterSevice.moveMitarbeiter("Markus", "Bergetschwandtner1");
 	// System.out.println(mitarbeiterSevice
 	// .getMitarbeiterByAbteilung("ICS480-SW.ext"));
-	System.out.println(mitarbeiterSevice.getMitarbeiterListByNname("sch"));
+	System.out.println(mitarbeiterSevice
+		.getMitarbeiterListByLand("Österreich"));
     }
 }
