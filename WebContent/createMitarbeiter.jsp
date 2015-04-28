@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+<%@page import="at.jku.semtech.miniprojekt1.entities.Person"%>
+<%@page import="at.jku.semtech.miniprojekt1.services.MitarbeiterSevice"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="com.hp.hpl.jena.query.*"%>
@@ -39,8 +41,9 @@
 				<jsp:include page="menu.html" />
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<form action="singleMitarbeiter.jsp" method="get" name="formMitarbeiter">
+				<form action="singleMitarbeiter.jsp" method="get"
+					name="formMitarbeiter">
+					<div class="col-md-6">
 						<input type="hidden" name="update" value="true">
 						<div class="form-group">
 							<label for="vnameInput">Vorname</label> <input type="text"
@@ -67,7 +70,8 @@
 						</div>
 						<div class="form-group">
 							<label for="landInput">Land</label> <input type="text"
-								class="form-control" name="landInput" placeholder="Land eingeben">
+								class="form-control" name="landInput"
+								placeholder="Land eingeben">
 						</div>
 						<div class="form-group">
 							<label for="gebdatInput">Geburtsdatum</label> <input type="text"
@@ -86,9 +90,44 @@
 								<option value="w">weiblich</option>
 							</select>
 						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
-					</form>
-				</div>
+						<button type="submit" class="btn btn-default">Speichern</button>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<h3>Beziehungen</h3>
+						</div>
+						<div class="row">
+							<table class="table table-striped table-bordered table-hover">
+								<tr>
+									<th style="width: 40%">Mitarbeiter</th>
+									<th style="width: 15%; text-align: center">Arbeitskollege</th>
+									<th style="width: 15%; text-align: center">Freund</th>
+									<th style="width: 15%; text-align: center">Bekannte</th>
+									<th style="width: 15%; text-align: center">Affäre</th>
+								</tr>
+								<%
+								    MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
+								    List<Person> persons = mitarbeiterSevice
+										    .getMitarbeiterListByNname("");
+
+								    for (Person p : persons) {
+										out.print("<tr><td>" + p.getVname() + " " + p.getNname()
+											+ "</td>");
+										out.print("<td style='text-align: center'><input type='checkbox' name='coworker' value='"
+											+ p.getVname() + "_" + p.getNname() + "'/></td>");
+										out.print("<td style='text-align: center'><input type='checkbox' name='friend' value='"
+											+ p.getVname() + "_" + p.getNname() + "'/></td>");
+										out.print("<td style='text-align: center'><input type='checkbox' name='knows' value='"
+											+ p.getVname() + "_" + p.getNname() + "'/></td>");
+										out.print("<td style='text-align: center'><input type='checkbox' name='sweetheart' value='"
+											+ p.getVname() + "_" + p.getNname() + "'/></td>");
+										out.print("</tr>");
+								    }
+								%>
+							</table>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

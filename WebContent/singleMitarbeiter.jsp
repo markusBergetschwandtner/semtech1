@@ -29,7 +29,12 @@
 <script src="js/bootstrap.min.js"></script>
 
 <%
-    String update = request.getParameter("update");
+String name = request.getParameter("name");
+if (name == null) {
+		name = request.getParameter("vnameInput") + "_"
+			+ request.getParameter("nnameInput");
+}
+	String update = request.getParameter("update");
     MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
     if (update.equalsIgnoreCase("true")) {
 
@@ -43,6 +48,27 @@
 			request.getParameter("gebdatInput"),
 			request.getParameter("abteilungInput"),
 			request.getParameter("geschlechtInput"), null, null);
+			
+			String co_values[] = request.getParameterValues("coworker");
+			String fr_values[] = request.getParameterValues("friend");
+			String kn_values[] = request.getParameterValues("knows");
+			String sw_values[] = request.getParameterValues("sweetheart");
+			
+			for (int i = 0; i<co_values.length; i++) {
+			    mitarbeiterSevice.addRelation(name, "vcard:coworker", co_values[i]);
+			}
+			
+			for (int i = 0; i<fr_values.length; i++) {
+			    mitarbeiterSevice.addRelation(name, "vcard:friend", fr_values[i]);
+			}
+			
+			for (int i = 0; i<kn_values.length; i++) {
+			    mitarbeiterSevice.addRelation(name, "foaf:knows", kn_values[i]);
+			}
+			
+			for (int i = 0; i<sw_values.length; i++) {
+			    mitarbeiterSevice.addRelation(name, "vcard:sweetheart", sw_values[i]);
+			}
     }
 %>
 
@@ -63,11 +89,6 @@
 		<div class="row">
 			<table class="table table-striped table-bordered table-hover">
 				<%
-				    String name = request.getParameter("name");
-				    if (name == null) {
-						name = request.getParameter("vnameInput") + "_"
-							+ request.getParameter("nnameInput");
-				    }
 				    Person person = mitarbeiterSevice.getMitarbeiterByUri(name);
 				%>
 				<thead>
@@ -125,6 +146,7 @@
 							    out.write("<tr><td>Arbeitskollegen</td><td>--- keine ---</td></tr>");
 							}
 							counter++;
+							before = co;
 					    }
 
 					    out.write("<tr><td></td><td></td></tr>");
@@ -156,6 +178,7 @@
 							    out.write("<tr><td>Freunde</td><td>--- keine ---</td></tr>");
 							}
 							counter++;
+							before = fr;
 					    }
 
 					    out.write("<tr><td></td><td></td></tr>");
@@ -187,6 +210,7 @@
 							    out.write("<tr><td>Bekannte</td><td>--- keine ---</td></tr>");
 							}
 							counter++;
+							before = kn;
 					    }
 
 					    out.write("<tr><td></td><td></td></tr>");
