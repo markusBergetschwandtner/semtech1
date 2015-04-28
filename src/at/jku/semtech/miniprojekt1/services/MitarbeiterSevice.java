@@ -67,7 +67,7 @@ public class MitarbeiterSevice {
 	// updating the remote model using a query string
 	String updateSparql = Static.PREFIX_RDF + Static.PREFIX;
 	updateSparql += " INSERT DATA { ";
-	if (!graph.equals("")) {
+	if (graph != null) {
 	    updateSparql += " GRAPH <http://example.org/" + graph + "/> { ";
 	}
 
@@ -83,7 +83,7 @@ public class MitarbeiterSevice {
 		updateSparql += "'; ";
 	    }
 	}
-	if (!graph.equals("")) {
+	if (graph != null) {
 	    updateSparql += "}";
 	}
 	updateSparql += "};";
@@ -125,15 +125,6 @@ public class MitarbeiterSevice {
 	return 1;
     }
 
-    public Person getMitarbeiterByNname(String nname) {
-	Map<String, Object> params = new HashMap<String, Object>();
-	params.put("nname", nname);
-	System.out.println("getPersonByName: " + nname);
-	Person person = template.selectForObject("param", "getPersonByNname",
-		params, Person.class);
-	return person;
-    }
-
     public int moveMitarbeiter(String vname, String nname) {
 	Map<String, Object> params = new HashMap<String, Object>();
 	params.put("nname", nname);
@@ -157,11 +148,20 @@ public class MitarbeiterSevice {
 	params.put("vname", vname);
 	deleteMitarbeiter(vname, nname);
 	createMitarbeiter(vname, nname, strasse, plz, ort, land, gebdat,
-		abteilung, geschlecht, relations, "");
+		abteilung, geschlecht, relations, null);
 	return 1;
     }
 
-    public List<Person> getMitarbeiterByAbteilung(String abteilung) {
+    public List<Person> getMitarbeiterListByNname(String nname) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("nname", nname);
+	System.out.println("getPersonByName: " + nname);
+	List<Person> persons = template.selectForList("param",
+		"getPersonByNname", params, Person.class);
+	return persons;
+    }
+
+    public List<Person> getMitarbeiterListByAbteilung(String abteilung) {
 	Map<String, Object> params = new HashMap<String, Object>();
 	params.put("abteilung", abteilung);
 	System.out.println("getPersonByAbteilung: " + abteilung);

@@ -26,8 +26,6 @@
 			SELECT ?person ?vname ?nname ?strasse ?plz ?ort ?land ?gebdat ?abteilung ?geschlecht 
 			?knows ?coworker ?sweetheart ?friend 
 			WHERE {
-				?person foaf:surname "#{nname}".
-			
 				?person foaf:firstName ?vname.
 				?person foaf:surname ?nname.
 				?person vcard:Street ?strasse.
@@ -37,10 +35,13 @@
 				?person foaf:birthday ?gebdat.
 				?person vcard:Orgunit ?abteilung.
 				?person foaf:gender ?geschlecht.
+				
 				OPTIONAL {?person foaf:knows ?knows.}
 				OPTIONAL {?person vcard:friend ?friend.}
 				OPTIONAL {?person vcard:sweetheart ?sweetheart.}
 				OPTIONAL {?person vcard:coworker ?coworker.}
+				
+				FILTER (regex(?nname, "#{nname}", "i"))
 			}
 		]]>
 	</select>
