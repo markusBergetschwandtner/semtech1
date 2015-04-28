@@ -217,6 +217,15 @@ public class MitarbeiterSevice {
 	return persons;
     }
 
+    public Person getMitarbeiterByUri(String uri) {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("person", uri);
+	System.out.println("getPersonByUri: " + uri);
+	Person person = template.selectForObject("param", "getPersonByUri",
+		params, Person.class);
+	return person;
+    }
+
     private void updateRequest(String update) {
 	UpdateRequest queryObj = UpdateFactory.create(update);
 	UpdateProcessor qexec = UpdateExecutionFactory.createRemoteForm(

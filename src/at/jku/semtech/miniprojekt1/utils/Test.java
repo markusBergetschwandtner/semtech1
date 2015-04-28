@@ -37,6 +37,6 @@ public class Test {
 	// System.out.println(mitarbeiterSevice
 	// .getMitarbeiterByAbteilung("ICS480-SW.ext"));
 	System.out.println(mitarbeiterSevice
-		.getMitarbeiterListByLand("Österreich"));
+		.getMitarbeiterByUri("Nicola_Schachinger"));
     }
 }
