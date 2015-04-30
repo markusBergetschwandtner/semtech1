@@ -35,9 +35,16 @@
 			+ request.getParameter("nnameInput");
     }
     String update = request.getParameter("update");
+    String change = request.getParameter("change");
+    if (update == null) {
+		update = "false";
+    }
+    if (change == null) {
+		change = "false";
+    }
     MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
-    if (update.equalsIgnoreCase("true")) {
 
+    if (update.equalsIgnoreCase("true")) {
 		mitarbeiterSevice.createMitarbeiter(
 			request.getParameter("vnameInput"),
 			request.getParameter("nnameInput"),
@@ -81,7 +88,19 @@
 				sw_values[i]);
 		    }
 		}
+    }
 
+    if (change.equalsIgnoreCase("true")) {
+		mitarbeiterSevice.updateMitarbeiter(
+			request.getParameter("vnameInput"),
+			request.getParameter("nnameInput"),
+			request.getParameter("strasseInput"),
+			request.getParameter("plzInput"),
+			request.getParameter("ortInput"),
+			request.getParameter("landInput"),
+			request.getParameter("gebdatInput"),
+			request.getParameter("abteilungInput"),
+			request.getParameter("geschlechtInput"), null);
     }
 %>
 
@@ -106,40 +125,57 @@
 				%>
 				<thead>
 					<tr>
-						<th>
-							<%
-							    out.write(person.getVname() + " " + person.getNname());
-							%>
+						<th style="width: 40%; text-align: right">
+							<h3>
+								<%
+								    out.write(person.getVname() + " " + person.getNname());
+								%>
+							</h3>
 						</th>
+						<th style="width: 60%; text-align: right"><a
+							href="createMitarbeiter.jsp?change=true&name=<%out.write(name);%>"><button
+									type="button" class="btn btn-primary
+								aria-label="LeftAlign">
+									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									Bearbeiten
+								</button></a>
+							<button type="button" class="btn btn-danger"
+								aria-label="Left Align">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								Löschen
+							</button></th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-					    out.write("<tr><td>Straße</td><td>" + person.getStrasse()
+					    out.write("<tr><td style='text-align: right'>Straße</td><td>" + person.getStrasse()
 							    + "</td></tr>");
-					    out.write("<tr><td>PLZ</td><td>" + person.getPlz() + "</td></tr>");
-					    out.write("<tr><td>Ort</td><td>" + person.getOrt() + "</td></tr>");
-					    out.write("<tr><td>Land</td><td>" + person.getLand() + "</td></tr>");
-					    out.write("<tr><td>Abteilung</td><td>" + person.getAbteilung()
+					    out.write("<tr><td style='text-align: right'>PLZ</td><td>" + person.getPlz() + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>Ort</td><td>" + person.getOrt() + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>Land</td><td>" + person.getLand() + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>Abteilung</td><td>" + person.getAbteilung()
 							    + "</td></tr>");
-					    out.write("<tr><td>Geschlecht</td><td>" + person.getGeschlecht()
+					    out.write("<tr><td style='text-align: right'>Geschlecht</td><td>" + person.getGeschlecht()
 							    + "</td></tr>");
 					    out.write("<tr><td></td><td></td></tr>");
 
 					    List<String> coworker = person.getCoworker();
+					    List<String> show_co = new ArrayList<String>();
 					    List<String> friend = person.getFriend();
+					    List<String> show_fr = new ArrayList<String>();
 					    List<String> sweetheart = person.getSweetheart();
+					    List<String> show_sw = new ArrayList<String>();
 					    List<String> knows = person.getKnows();
-					    String before = "";
+					    List<String> show_kn = new ArrayList<String>();
 
 					    int counter = 0;
 					    for (String co : coworker) {
-							if (before.equalsIgnoreCase(co)) {
+							if (show_co.contains(co)) {
 
 							} else if (co != null) {
 							    if (counter == 0) {
 								//erster
-								out.write("<tr><td>Arbeitskollegen</td><td><a href='singleMitarbeiter.jsp?update=false&name="
+								out.write("<tr><td style='text-align: right'>Arbeitskollegen</td><td><a href='singleMitarbeiter.jsp?update=false&name="
 									+ co
 									+ "'>"
 									+ co.replace("_", " ")
@@ -154,25 +190,24 @@
 									+ "</a></td>");
 								out.write("</tr>");
 							    }
+							    show_co.add(co);
 							} else if (counter == 0) {
 							    //keine
-							    out.write("<tr><td>Arbeitskollegen</td><td>--- keine ---</td></tr>");
+							    out.write("<tr><td style='text-align: right'>Arbeitskollegen</td><td>--- keine ---</td></tr>");
 							}
 							counter++;
-							before = co;
 					    }
 
 					    out.write("<tr><td></td><td></td></tr>");
 					    counter = 0;
-					    before = "";
 
 					    for (String fr : friend) {
-							if (before.equalsIgnoreCase(fr)) {
+							if (show_fr.contains(fr)) {
 
 							} else if (fr != null) {
 							    if (counter == 0) {
 								//erster
-								out.write("<tr><td>Freunde</td><td><a href='singleMitarbeiter.jsp?update=false&name="
+								out.write("<tr><td style='text-align: right'>Freunde</td><td><a href='singleMitarbeiter.jsp?update=false&name="
 									+ fr
 									+ "'>"
 									+ fr.replace("_", " ")
@@ -187,25 +222,24 @@
 									+ "</a></td>");
 								out.write("</tr>");
 							    }
+							    show_fr.add(fr);
 							} else if (counter == 0) {
 							    //keine
-							    out.write("<tr><td>Freunde</td><td>--- keine ---</td></tr>");
+							    out.write("<tr><td style='text-align: right'>Freunde</td><td>--- keine ---</td></tr>");
 							}
 							counter++;
-							before = fr;
 					    }
 
 					    out.write("<tr><td></td><td></td></tr>");
 					    counter = 0;
-					    before = "";
 
 					    for (String kn : knows) {
-							if (before.equalsIgnoreCase(kn)) {
+							if (show_kn.contains(kn)) {
 
 							} else if (kn != null) {
 							    if (counter == 0) {
 								//erster
-								out.write("<tr><td>Bekannte</td><td><a href='singleMitarbeiter.jsp?update=false&name="
+								out.write("<tr><td style='text-align: right'>Bekannte</td><td><a href='singleMitarbeiter.jsp?update=false&name="
 									+ kn
 									+ "'>"
 									+ kn.replace("_", " ")
@@ -220,25 +254,24 @@
 									+ "</a></td>");
 								out.write("</tr>");
 							    }
+							    show_kn.add(kn);
 							} else if (counter == 0) {
 							    //keine
-							    out.write("<tr><td>Bekannte</td><td>--- keine ---</td></tr>");
+							    out.write("<tr><td style='text-align: right'>Bekannte</td><td>--- keine ---</td></tr>");
 							}
 							counter++;
-							before = kn;
 					    }
 
 					    out.write("<tr><td></td><td></td></tr>");
 					    counter = 0;
-					    before = "";
 
 					    for (String sw : sweetheart) {
-							if (before.equalsIgnoreCase(sw)) {
+							if (show_sw.contains(sw)) {
 
 							} else if (sw != null) {
 							    if (counter == 0) {
 								//erster
-								out.write("<tr><td>Affären</td><td><a href='singleMitarbeiter.jsp?update=false&name="
+								out.write("<tr><td style='text-align: right'>Affären</td><td><a href='singleMitarbeiter.jsp?update=false&name="
 									+ sw
 									+ "'>"
 									+ sw.replace("_", " ")
@@ -253,12 +286,12 @@
 									+ "</a></td>");
 								out.write("</tr>");
 							    }
+							    show_sw.add(sw);
 							} else if (counter == 0) {
 							    //keine
-							    out.write("<tr><td>Affären</td><td>--- keine ---</td></tr>");
+							    out.write("<tr><td style='text-align: right'>Affären</td><td>--- keine ---</td></tr>");
 							}
 							counter++;
-							before = sw;
 					    }
 					%>
 				</tbody>
