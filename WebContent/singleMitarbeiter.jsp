@@ -29,12 +29,12 @@
 <script src="js/bootstrap.min.js"></script>
 
 <%
-String name = request.getParameter("name");
-if (name == null) {
+    String name = request.getParameter("name");
+    if (name == null) {
 		name = request.getParameter("vnameInput") + "_"
 			+ request.getParameter("nnameInput");
-}
-	String update = request.getParameter("update");
+    }
+    String update = request.getParameter("update");
     MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
     if (update.equalsIgnoreCase("true")) {
 
@@ -48,27 +48,40 @@ if (name == null) {
 			request.getParameter("gebdatInput"),
 			request.getParameter("abteilungInput"),
 			request.getParameter("geschlechtInput"), null, null);
-			
-			String co_values[] = request.getParameterValues("coworker");
-			String fr_values[] = request.getParameterValues("friend");
-			String kn_values[] = request.getParameterValues("knows");
-			String sw_values[] = request.getParameterValues("sweetheart");
-			
-			for (int i = 0; i<co_values.length; i++) {
-			    mitarbeiterSevice.addRelation(name, "vcard:coworker", co_values[i]);
-			}
-			
-			for (int i = 0; i<fr_values.length; i++) {
-			    mitarbeiterSevice.addRelation(name, "vcard:friend", fr_values[i]);
-			}
-			
-			for (int i = 0; i<kn_values.length; i++) {
-			    mitarbeiterSevice.addRelation(name, "foaf:knows", kn_values[i]);
-			}
-			
-			for (int i = 0; i<sw_values.length; i++) {
-			    mitarbeiterSevice.addRelation(name, "vcard:sweetheart", sw_values[i]);
-			}
+
+		String co_values[] = request.getParameterValues("coworker");
+		String fr_values[] = request.getParameterValues("friend");
+		String kn_values[] = request.getParameterValues("knows");
+		String sw_values[] = request.getParameterValues("sweetheart");
+
+		if (co_values != null) {
+		    for (int i = 0; i < co_values.length; i++) {
+			mitarbeiterSevice.addRelation(name, "vcard:coworker",
+				co_values[i]);
+		    }
+		}
+
+		if (fr_values != null) {
+		    for (int i = 0; i < fr_values.length; i++) {
+			mitarbeiterSevice.addRelation(name, "vcard:friend",
+				fr_values[i]);
+		    }
+		}
+
+		if (kn_values != null) {
+		    for (int i = 0; i < kn_values.length; i++) {
+			mitarbeiterSevice.addRelation(name, "foaf:knows",
+				kn_values[i]);
+		    }
+		}
+
+		if (sw_values != null) {
+		    for (int i = 0; i < sw_values.length; i++) {
+			mitarbeiterSevice.addRelation(name, "vcard:sweetheart",
+				sw_values[i]);
+		    }
+		}
+
     }
 %>
 
@@ -151,6 +164,7 @@ if (name == null) {
 
 					    out.write("<tr><td></td><td></td></tr>");
 					    counter = 0;
+					    before = "";
 
 					    for (String fr : friend) {
 							if (before.equalsIgnoreCase(fr)) {
@@ -183,6 +197,7 @@ if (name == null) {
 
 					    out.write("<tr><td></td><td></td></tr>");
 					    counter = 0;
+					    before = "";
 
 					    for (String kn : knows) {
 							if (before.equalsIgnoreCase(kn)) {
@@ -215,6 +230,7 @@ if (name == null) {
 
 					    out.write("<tr><td></td><td></td></tr>");
 					    counter = 0;
+					    before = "";
 
 					    for (String sw : sweetheart) {
 							if (before.equalsIgnoreCase(sw)) {
