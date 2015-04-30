@@ -139,7 +139,8 @@
 									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									Bearbeiten
 								</button></a>
-							<button type="button" class="btn btn-danger"
+							<a
+							href="deleteMitarbeiter.jsp?name=<%out.write(name);%>"><button type="button" class="btn btn-danger"
 								aria-label="Left Align">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								Löschen
