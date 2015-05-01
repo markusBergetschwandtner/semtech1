@@ -22,17 +22,18 @@
 	var divIds = [ "allDiv", "genderDiv", "nameDiv", "zipDiv", "locDiv",
 			"countryDiv", "divDiv" ];
 
-	function myFunction(divId) {
+	function toggleView(divId) {
 		for (i = 0; i < divIds.length; i++) {
 			if (divIds[i] != divId)
 				$("#" + divIds[i]).hide();
 		}
+
+		$('input[name="searchMode"]').val(divId);
 		$("#" + divId).show();
 	}
 </script>
 </head>
 <body>
-
 	<div class="container">
 		<div class="row header">
 			<div class="col-md-12">
@@ -45,21 +46,22 @@
 			</div>
 			<form action="showMitarbeiter.jsp" method="get" name="formSearch">
 				<div class="row">
+					<input type="hidden" name="searchMode" value="" />
 					<div class="col-md-6">
 						<div class="btn-group">
-							<button onclick="myFunction('allDiv')" type="button"
+							<button onclick="toggleView('allDiv')" type="button"
 								class="btn btn-default">Alle</button>
-							<button onclick="myFunction('genderDiv')" type="button"
+							<button onclick="toggleView('genderDiv')" type="button"
 								class="btn btn-default">Geschlecht</button>
-							<button onclick="myFunction('nameDiv')" type="button"
+							<button onclick="toggleView('nameDiv')" type="button"
 								class="btn btn-default">Name</button>
-							<button onclick="myFunction('zipDiv')" type="button"
+							<button onclick="toggleView('zipDiv')" type="button"
 								class="btn btn-default">PLZ</button>
-							<button onclick="myFunction('locDiv')" type="button"
+							<button onclick="toggleView('locDiv')" type="button"
 								class="btn btn-default">Ort</button>
-							<button onclick="myFunction('countryDiv')" type="button"
+							<button onclick="toggleView('countryDiv')" type="button"
 								class="btn btn-default">Land</button>
-							<button onclick="myFunction('divDiv')" type="button"
+							<button onclick="toggleView('divDiv')" type="button"
 								class="btn btn-default">Abteilung</button>
 						</div>
 					</div>
