@@ -31,8 +31,7 @@
     MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
     String name = request.getParameter("name");
     Person person = mitarbeiterSevice.getMitarbeiterByUri(name);
-    mitarbeiterSevice.moveMitarbeiter(person.getVname(),
-		    person.getNname());
+    mitarbeiterSevice.moveMitarbeiter(person.getVname(), person.getNname());
 %>
 
 </head>

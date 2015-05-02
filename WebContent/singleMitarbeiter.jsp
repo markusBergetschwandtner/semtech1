@@ -54,7 +54,7 @@
 			request.getParameter("landInput"),
 			request.getParameter("gebdatInput"),
 			request.getParameter("abteilungInput"),
-			request.getParameter("geschlechtInput"), null, null);
+			request.getParameter("geschlechtInput"), null);
 
 		String co_values[] = request.getParameterValues("coworker");
 		String fr_values[] = request.getParameterValues("friend");
@@ -64,28 +64,28 @@
 		if (co_values != null) {
 		    for (int i = 0; i < co_values.length; i++) {
 			mitarbeiterSevice.addRelation(name, "vcard:coworker",
-				co_values[i]);
+				co_values[i], null);
 		    }
 		}
 
 		if (fr_values != null) {
 		    for (int i = 0; i < fr_values.length; i++) {
 			mitarbeiterSevice.addRelation(name, "vcard:friend",
-				fr_values[i]);
+				fr_values[i], null);
 		    }
 		}
 
 		if (kn_values != null) {
 		    for (int i = 0; i < kn_values.length; i++) {
 			mitarbeiterSevice.addRelation(name, "foaf:knows",
-				kn_values[i]);
+				kn_values[i], null);
 		    }
 		}
 
 		if (sw_values != null) {
 		    for (int i = 0; i < sw_values.length; i++) {
 			mitarbeiterSevice.addRelation(name, "vcard:sweetheart",
-				sw_values[i]);
+				sw_values[i], null);
 		    }
 		}
     }
@@ -100,7 +100,7 @@
 			request.getParameter("landInput"),
 			request.getParameter("gebdatInput"),
 			request.getParameter("abteilungInput"),
-			request.getParameter("geschlechtInput"), null);
+			request.getParameter("geschlechtInput"));
     }
 %>
 
