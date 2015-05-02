@@ -28,18 +28,18 @@
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <%
-	MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
-	String change = request.getParameter("change");
-	Person person = null;
-	
-	if (change == null) {
-	    change = "false";
-	}
-	
-	if (change.equalsIgnoreCase("true")) {
-	    String name = request.getParameter("name");
-	    person = mitarbeiterSevice.getMitarbeiterByUri(name);
-	}
+    MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
+    String change = request.getParameter("change");
+    Person person = null;
+
+    if (change == null) {
+		change = "false";
+    }
+
+    if (change.equalsIgnoreCase("true")) {
+		String name = request.getParameter("name");
+		person = mitarbeiterSevice.getMitarbeiterByUri(name);
+    }
 %>
 
 </head>
@@ -48,7 +48,18 @@
 	<div class="container">
 		<div class="row header">
 			<div class="col-md-12">
-				<h1>Mitarbeiter-Datenbank - <%if (!change.equalsIgnoreCase("true")) {out.write("neuer ");}%>Mitarbeiter<%if (change.equalsIgnoreCase("true")) {out.write(" bearbeiten");}%></h1>
+				<h1>
+					Mitarbeiter-Datenbank -
+					<%
+				    if (!change.equalsIgnoreCase("true")) {
+						out.write("neuer ");
+				    }
+				%>Mitarbeiter<%
+				    if (change.equalsIgnoreCase("true")) {
+						out.write(" bearbeiten");
+				    }
+				%>
+				</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -59,51 +70,83 @@
 				<form action="singleMitarbeiter.jsp" method="get"
 					name="formMitarbeiter">
 					<div class="col-md-6">
-						<input type="hidden" name="update" value="true">
-						<input type="hidden" name="change" value="<%out.write(change);%>">
- 						<div class="form-group">
+						<input type="hidden" name="update" value="true"> <input
+							type="hidden" name="change" value="<%out.write(change);%>">
+						<div class="form-group">
 							<label for="vnameInput">Vorname</label> <input type="text"
 								class="form-control" name="vnameInput"
-								placeholder="Vorname eingeben" value="<%if (change.equalsIgnoreCase("true")) {out.write(person.getVname());}%>">
+								placeholder="Vorname eingeben"
+								value="<%if (change.equalsIgnoreCase("true")) {
+		out.write(person.getVname());
+	    }%>">
 						</div>
 						<div class="form-group">
 							<label for="nnameInput">Nachname</label> <input type="text"
 								class="form-control" name="nnameInput"
-								placeholder="Nachname eingeben" value="<%if (change.equalsIgnoreCase("true")) {out.write(person.getNname());}%>">
+								placeholder="Nachname eingeben"
+								value="<%if (change.equalsIgnoreCase("true")) {
+		out.write(person.getNname());
+	    }%>">
 						</div>
 						<div class="form-group">
 							<label for="strasseInput">Straﬂe</label> <input type="text"
 								class="form-control" name="strasseInput"
-								placeholder="Straﬂe und Hausnummer eingeben" value="<%if (change.equalsIgnoreCase("true")) {out.write(person.getStrasse());}%>">
+								placeholder="Straﬂe und Hausnummer eingeben"
+								value="<%if (change.equalsIgnoreCase("true")) {
+		out.write(person.getStrasse());
+	    }%>">
 						</div>
 						<div class="form-group">
 							<label for="plzInput">PLZ</label> <input type="text"
-								class="form-control" name="plzInput" placeholder="PLZ eingeben" value="<%if (change.equalsIgnoreCase("true")) {out.write(person.getPlz());}%>">
+								class="form-control" name="plzInput" placeholder="PLZ eingeben"
+								value="<%if (change.equalsIgnoreCase("true")) {
+		out.write(person.getPlz());
+	    }%>">
 						</div>
 						<div class="form-group">
 							<label for="ortInput">Ort</label> <input type="text"
-								class="form-control" name="ortInput" placeholder="Ort eingeben" value="<%if (change.equalsIgnoreCase("true")) {out.write(person.getOrt());}%>">
+								class="form-control" name="ortInput" placeholder="Ort eingeben"
+								value="<%if (change.equalsIgnoreCase("true")) {
+		out.write(person.getOrt());
+	    }%>">
 						</div>
 						<div class="form-group">
 							<label for="landInput">Land</label> <input type="text"
 								class="form-control" name="landInput"
-								placeholder="Land eingeben" value="<%if (change.equalsIgnoreCase("true")) {out.write(person.getLand());}%>">
+								placeholder="Land eingeben"
+								value="<%if (change.equalsIgnoreCase("true")) {
+		out.write(person.getLand());
+	    }%>">
 						</div>
 						<div class="form-group">
 							<label for="gebdatInput">Geburtsdatum</label> <input type="text"
 								class="form-control" name="gebdatInput"
-								placeholder="Geburtsdatum eingeben" value="<%if (change.equalsIgnoreCase("true")) {out.write(person.getGebDat());}%>">
+								placeholder="Geburtsdatum eingeben"
+								value="<%if (change.equalsIgnoreCase("true")) {
+		out.write(person.getGebDat());
+	    }%>">
 						</div>
 						<div class="form-group">
 							<label for="abteilungInput">Abteilung</label> <input type="text"
 								class="form-control" name="abteilungInput"
-								placeholder="Abteilung eingeben" value="<%if (change.equalsIgnoreCase("true")) {out.write(person.getAbteilung());}%>">
+								placeholder="Abteilung eingeben"
+								value="<%if (change.equalsIgnoreCase("true")) {
+		out.write(person.getAbteilung());
+	    }%>">
 						</div>
 						<div class="form-group">
 							<label for="geschlechtInput">Geschlecht</label> <select
 								class="form-control" name="geschlechtInput">
-								<option value="m" <%if (change.equalsIgnoreCase("true") && person.getGeschlecht().equalsIgnoreCase("m")) {out.write("selected");}%>>m‰nnlich</option>
-								<option value="w" <%if (change.equalsIgnoreCase("true") && person.getGeschlecht().equalsIgnoreCase("w")) {out.write("selected");}%>>weiblich</option>
+								<option value="m"
+									<%if (change.equalsIgnoreCase("true")
+		    && person.getGeschlecht().equalsIgnoreCase("m")) {
+		out.write("selected");
+	    }%>>m‰nnlich</option>
+								<option value="w"
+									<%if (change.equalsIgnoreCase("true")
+		    && person.getGeschlecht().equalsIgnoreCase("w")) {
+		out.write("selected");
+	    }%>>weiblich</option>
 							</select>
 						</div>
 						<button type="submit" class="btn btn-default">Speichern</button>
@@ -124,19 +167,35 @@
 								<%
 								    List<Person> persons = mitarbeiterSevice
 										    .getMitarbeiterListByNname("");
-
 								    for (Person p : persons) {
-										out.print("<tr><td>" + p.getVname() + " " + p.getNname()
-											+ "</td>");
-										out.print("<td style='text-align: center'><input type='checkbox' name='coworker' value='"
-											+ p.getVname() + "_" + p.getNname() + "'/></td>");
-										out.print("<td style='text-align: center'><input type='checkbox' name='friend' value='"
-											+ p.getVname() + "_" + p.getNname() + "'/></td>");
-										out.print("<td style='text-align: center'><input type='checkbox' name='knows' value='"
-											+ p.getVname() + "_" + p.getNname() + "'/></td>");
-										out.print("<td style='text-align: center'><input type='checkbox' name='sweetheart' value='"
-											+ p.getVname() + "_" + p.getNname() + "'/></td>");
-										out.print("</tr>");
+										String name = p.getVname() + "_" + p.getNname();
+										if (!person.getUri().toString().contains(name)) {
+										    out.write("<tr><td>" + name.replace("_", " ") + "</td>");
+										    out.write("<td style='text-align: center'><input type='checkbox' name='coworker' value='"
+											    + name +"' ");
+										    if (person.getCoworker().contains(name)) {
+											out.write("checked");
+										    }
+										    out.write("/></td>");
+										    out.print("<td style='text-align: center'><input type='checkbox' name='friend' value='"
+											    + name +"' ");
+										    if (person.getFriend().contains(name)) {
+											out.write("checked");
+										    }
+										    out.write("/></td>");
+										    out.print("<td style='text-align: center'><input type='checkbox' name='knows' value='"
+											    + name +"' ");
+										    if (person.getKnows().contains(name)) {
+											out.write("checked");
+										    }
+										    out.write("/></td>");
+										    out.print("<td style='text-align: center'><input type='checkbox' name='sweetheart' value='"
+											    + name +"' ");
+										    if (person.getSweetheart().contains(name)) {
+											out.write("checked");
+										    }
+										    out.write("/></td></tr>");
+										}
 								    }
 								%>
 							</table>
