@@ -169,33 +169,35 @@
 										    .getMitarbeiterListByNname("");
 								    for (Person p : persons) {
 										String name = p.getVname() + "_" + p.getNname();
-										if (!person.getUri().toString().contains(name)) {
-										    out.write("<tr><td>" + name.replace("_", " ") + "</td>");
-										    out.write("<td style='text-align: center'><input type='checkbox' name='coworker' value='"
-											    + name +"' ");
-										    if (person.getCoworker().contains(name)) {
-											out.write("checked");
-										    }
-										    out.write("/></td>");
-										    out.print("<td style='text-align: center'><input type='checkbox' name='friend' value='"
-											    + name +"' ");
-										    if (person.getFriend().contains(name)) {
-											out.write("checked");
-										    }
-										    out.write("/></td>");
-										    out.print("<td style='text-align: center'><input type='checkbox' name='knows' value='"
-											    + name +"' ");
-										    if (person.getKnows().contains(name)) {
-											out.write("checked");
-										    }
-										    out.write("/></td>");
-										    out.print("<td style='text-align: center'><input type='checkbox' name='sweetheart' value='"
-											    + name +"' ");
-										    if (person.getSweetheart().contains(name)) {
-											out.write("checked");
-										    }
-										    out.write("/></td></tr>");
+										out.write("<tr><td>" + name.replace("_", " ") + "</td>");
+										out.write("<td style='text-align: center'><input type='checkbox' name='coworker' value='"
+											+ name + "' ");
+										if (change.equalsIgnoreCase("true")
+											&& person.getCoworker().contains(name)) {
+										    out.write("checked");
 										}
+										out.write("/></td>");
+										out.print("<td style='text-align: center'><input type='checkbox' name='friend' value='"
+											+ name + "' ");
+										if (change.equalsIgnoreCase("true")
+											&& person.getFriend().contains(name)) {
+										    out.write("checked");
+										}
+										out.write("/></td>");
+										out.print("<td style='text-align: center'><input type='checkbox' name='knows' value='"
+											+ name + "' ");
+										if (change.equalsIgnoreCase("true")
+											&& person.getKnows().contains(name)) {
+										    out.write("checked");
+										}
+										out.write("/></td>");
+										out.print("<td style='text-align: center'><input type='checkbox' name='sweetheart' value='"
+											+ name + "' ");
+										if (change.equalsIgnoreCase("true")
+											&& person.getSweetheart().contains(name)) {
+										    out.write("checked");
+										}
+										out.write("/></td></tr>");
 								    }
 								%>
 							</table>
