@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <%@page import="at.jku.semtech.miniprojekt1.entities.Person"%>
 <%@page import="at.jku.semtech.miniprojekt1.services.MitarbeiterSevice"%>
@@ -29,7 +27,7 @@
 <body>
 	<%
 		String mode = request.getParameter("searchMode");
-		String h2Value = "Keine EintrÃ¤ge gefunden";
+		String h2Value = "Keine Einträge gefunden";
 		MitarbeiterSevice mitarbeiterService = new MitarbeiterSevice();
 		List<Person> pList = null;
 		String input = "";
@@ -43,7 +41,7 @@
 			String gender = request.getParameter("geschlechtInput");
 			input = gender;
 			if(gender.equals("m")){
-				gender = "mÃ¤nnlichen";
+				gender = "männlichen";
 			}else{
 				gender = "weiblichen";
 			}
@@ -122,7 +120,7 @@
 								out.write("<td><a href='singleMitarbeiter.jsp?update=false&name="
 										+ p.getVname() + "_" + p.getNname() + "'>"
 										+ p.getVname() + " " + p.getNname() + "</a></td>");
-								out.write("<td>  <a href='deleteMitarbeiter.jsp?name="+p.getVname()+"_"+p.getNname()+"'_parent'><button type='button' onClick='deletePerson()' id='deleteButton' class='btn btn-default'> LÃ¶schen</button></a> </td>");
+								out.write("<td>  <a href='deleteMitarbeiter.jsp?name="+p.getVname()+"_"+p.getNname()+"'><button type='button' onClick='deletePerson()' id='deleteButton' class='btn btn-default'> Löschen</button></a> </td>");
 								out.write("</tr>");
 							}
 						%>
