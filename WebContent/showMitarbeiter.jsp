@@ -119,7 +119,7 @@
 						<%
 							for (Person p : pList) {
 								out.write("<tr>");
-								out.write("<td><a href='singleMitarbeiter.jsp?name="
+								out.write("<td><a href='singleMitarbeiter.jsp?update=false&name="
 										+ p.getVname() + "_" + p.getNname() + "'>"
 										+ p.getVname() + " " + p.getNname() + "</a></td>");
 								out.write("<td>  <a href='deleteMitarbeiter.jsp?name="+p.getVname()+"_"+p.getNname()+"'_parent'><button type='button' onClick='deletePerson()' id='deleteButton' class='btn btn-default'> Löschen</button></a> </td>");
