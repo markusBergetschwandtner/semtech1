@@ -69,39 +69,39 @@
 			request.getParameter("abteilungInput"),
 			request.getParameter("geschlechtInput"));
     }
-    
+
     String co_values[] = request.getParameterValues("coworker");
-	String fr_values[] = request.getParameterValues("friend");
-	String kn_values[] = request.getParameterValues("knows");
-	String sw_values[] = request.getParameterValues("sweetheart");
+    String fr_values[] = request.getParameterValues("friend");
+    String kn_values[] = request.getParameterValues("knows");
+    String sw_values[] = request.getParameterValues("sweetheart");
 
-	if (co_values != null) {
-	    for (int i = 0; i < co_values.length; i++) {
-		mitarbeiterSevice.addRelation(name, "vcard:coworker",
-			co_values[i], null);
-	    }
-	}
+    if (co_values != null) {
+		for (int i = 0; i < co_values.length; i++) {
+		    mitarbeiterSevice.addRelation(name, "vcard:coworker",
+			    co_values[i], null);
+		}
+    }
 
-	if (fr_values != null) {
-	    for (int i = 0; i < fr_values.length; i++) {
-		mitarbeiterSevice.addRelation(name, "vcard:friend",
-			fr_values[i], null);
-	    }
-	}
+    if (fr_values != null) {
+		for (int i = 0; i < fr_values.length; i++) {
+		    mitarbeiterSevice.addRelation(name, "vcard:friend",
+			    fr_values[i], null);
+		}
+    }
 
-	if (kn_values != null) {
-	    for (int i = 0; i < kn_values.length; i++) {
-		mitarbeiterSevice.addRelation(name, "foaf:knows",
-			kn_values[i], null);
-	    }
-	}
+    if (kn_values != null) {
+		for (int i = 0; i < kn_values.length; i++) {
+		    mitarbeiterSevice.addRelation(name, "foaf:knows",
+			    kn_values[i], null);
+		}
+    }
 
-	if (sw_values != null) {
-	    for (int i = 0; i < sw_values.length; i++) {
-		mitarbeiterSevice.addRelation(name, "vcard:sweetheart",
-			sw_values[i], null);
-	    }
-	}
+    if (sw_values != null) {
+		for (int i = 0; i < sw_values.length; i++) {
+		    mitarbeiterSevice.addRelation(name, "vcard:sweetheart",
+			    sw_values[i], null);
+		}
+    }
 %>
 
 </head>
@@ -133,31 +133,37 @@
 							</h3>
 						</th>
 						<th style="width: 60%; text-align: right"><a
+							href="mapView.jsp?strasse=<%out.write(person.getStrasse());%>&plz=<%out.write(person.getPlz());%>&ort=<%out.write(person.getOrt());%>&land=<%out.write(person.getLand());%>"><button
+									type="button" class="btn btn-success" aria-label="Left Align">
+									<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+									Google Map
+								</button></a> <a
 							href="createMitarbeiter.jsp?change=true&name=<%out.write(name);%>"><button
 									type="button" class="btn btn-primary
 								aria-label="LeftAlign">
 									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									Bearbeiten
-								</button></a>
-							<a
-							href="deleteMitarbeiter.jsp?name=<%out.write(name);%>"><button type="button" class="btn btn-danger"
-								aria-label="Left Align">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								Löschen
-							</button></th>
+								</button></a> <a href="deleteMitarbeiter.jsp?name=<%out.write(name);%>"><button
+									type="button" class="btn btn-danger" aria-label="Left Align">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									Löschen
+								</button></a></th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-					    out.write("<tr><td style='text-align: right'>Straße</td><td>" + person.getStrasse()
-							    + "</td></tr>");
-					    out.write("<tr><td style='text-align: right'>PLZ</td><td>" + person.getPlz() + "</td></tr>");
-					    out.write("<tr><td style='text-align: right'>Ort</td><td>" + person.getOrt() + "</td></tr>");
-					    out.write("<tr><td style='text-align: right'>Land</td><td>" + person.getLand() + "</td></tr>");
-					    out.write("<tr><td style='text-align: right'>Abteilung</td><td>" + person.getAbteilung()
-							    + "</td></tr>");
-					    out.write("<tr><td style='text-align: right'>Geschlecht</td><td>" + person.getGeschlecht()
-							    + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>Straße</td><td>"
+							    + person.getStrasse() + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>PLZ</td><td>"
+							    + person.getPlz() + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>Ort</td><td>"
+							    + person.getOrt() + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>Land</td><td>"
+							    + person.getLand() + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>Abteilung</td><td>"
+							    + person.getAbteilung() + "</td></tr>");
+					    out.write("<tr><td style='text-align: right'>Geschlecht</td><td>"
+							    + person.getGeschlecht() + "</td></tr>");
 					    out.write("<tr><td></td><td></td></tr>");
 
 					    List<String> coworker = person.getCoworker();

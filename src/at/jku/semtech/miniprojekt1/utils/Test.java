@@ -3,40 +3,45 @@ package at.jku.semtech.miniprojekt1.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.parser.ParseException;
+
 import at.jku.semtech.miniprojekt1.services.MitarbeiterSevice;
 
 public class Test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 	MitarbeiterSevice mitarbeiterSevice = new MitarbeiterSevice();
 	Map<String, String> map = new HashMap<String, String>();
-	// mitarbeiterSevice.createMitarbeiter("Hans", "Huber", "Straße 1",
-	// "1010", "Wien", "Österreich", "01.03.1990", "Buchhaltung", "m",
+	// mitarbeiterSevice.createMitarbeiter("Hans", "Huber", "Straï¿½e 1",
+	// "1010", "Wien", "ï¿½sterreich", "01.03.1990", "Buchhaltung", "m",
 	// null, null);
 	// map.put("foaf:knows", "Hans_Huber");
 	// mitarbeiterSevice.createMitarbeiter("Markus", "Bergetschwandtner",
-	// "Sonnenhang 1", "5310", "Mondsee", "Österreich", "29.07.1991",
+	// "Sonnenhang 1", "5310", "Mondsee", "ï¿½sterreich", "29.07.1991",
 	// "ICS480-SW.ext", "m", null, null);
 	// mitarbeiterSevice.createMitarbeiter("Nicola", "Schachinger",
-	// "Nirgendwo 3", "4321", "Ampflwang", "Österreich", "12.05.1991",
+	// "Nirgendwo 3", "4321", "Ampflwang", "ï¿½sterreich", "12.05.1991",
 	// "Softwareentwicklung", "w", null, null);
-	// mitarbeiterSevice.createMitarbeiter("Alex", "Schärfl",
-	// "Landstraße 3",
-	// "4020", "Linz", "Österreich", "03.02.1992", "HR", "m", null,
+	// mitarbeiterSevice.createMitarbeiter("Alex", "Schï¿½rfl",
+	// "Landstraï¿½e 3",
+	// "4020", "Linz", "ï¿½sterreich", "03.02.1992", "HR", "m", null,
 	// null);
 	// mitarbeiterSevice.addRelation("Nicola_Schachinger",
 	// "vcard:sweetheart",
-	// "Alex_Schärfl");
-	// mitarbeiterSevice.addRelation("Alex_Schärfl", "vcard:sweetheart",
+	// "Alex_Schï¿½rfl");
+	// mitarbeiterSevice.addRelation("Alex_Schï¿½rfl", "vcard:sweetheart",
 	// "Nicola_Schachinger");
 	// mitarbeiterSevice.addRelation("Nicola_Schachinger", "vcard:coworker",
 	// "Markus_Bergetschwandtner");
 	// mitarbeiterSevice.addRelation("Markus_Bergetschwandtner",
-	// "vcard:friend", "Alex_Schärfl");
+	// "vcard:friend", "Alex_Schï¿½rfl");
 	// mitarbeiterSevice.moveMitarbeiter("Markus", "Bergetschwandtner1");
 	// System.out.println(mitarbeiterSevice
 	// .getMitarbeiterByAbteilung("ICS480-SW.ext"));
-	System.out.println(mitarbeiterSevice
-		.getMitarbeiterListByNname("Schmidt"));
+	// System.out.println(mitarbeiterSevice
+	// .getMitarbeiterListByNname("Schmidt"));
+	Utils utils = new Utils();
+	System.out.println(utils.getLongLat("BichlfeldstraÃŸe 11", "5020",
+		"Salzburg", "Ã–sterreich"));
     }
 }
